@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <trialfire_tracker>
+            <general>
+                <active>0</active>
+                <asset_url>https://cdn.trialfire.com/tf.js</asset_url>
+            </general>
+        </trialfire_tracker>
+    </default>
+</config>

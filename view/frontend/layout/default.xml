@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Trialfire\Tracker\Block\Head"
+                   name="trialfire_tracker_head"
+                   template="Trialfire_Tracker::head.phtml"
+                   before="-"
+                   ifconfig="trialfire_tracker/general/active"/>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Trialfire_Tracker" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Catalog"/>
+            <module name="Magento_Store"/>
+            <module name="Magento_Cms"/>
+            <module name="Magento_Checkout"/>
+        </sequence>
+    </module>
+</config>

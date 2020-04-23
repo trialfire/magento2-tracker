@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>        
+        <tab id="trialfire" translate="label" sortOrder="300">
+            <label><![CDATA[Trialfire]]></label>
+        </tab>
+        <section id="trialfire_tracker"
+                 type="text"
+                 translate="label"
+                 sortOrder="100"
+                 showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label><![CDATA[Tracker]]></label>
+            <tab>trialfire</tab>
+            <resource>Trialfire_Tracker::config_system</resource>
+            <group id="general"
+                   type="text"
+                   translate="label"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label><![CDATA[General]]></label>
+                <field id="active"
+                       translate="label"
+                       type="select"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Enable Tracking]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_token"
+                       translate="label"
+                       sortOrder="15"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[API Token]]></label>
+                    <comment><![CDATA[Input your Trialfire API token]]></comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="*/general/active">1</field>
+                    </depends>
+                </field>
+                <field id="asset_url"
+                       translate="label"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Asset URL]]></label>
+                    <comment><![CDATA[Typically: https://cdn.trialfire.com/tf.js]]></comment>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+        </section>     
+    </system>
+</config>
