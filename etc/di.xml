@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Trialfire\Tracker\Model\Session\Storage" type="Magento\Framework\Session\Storage">
+        <arguments>
+            <argument name="namespace" xsi:type="string">Trialfire_Tracker</argument>
+        </arguments>
+    </virtualType>
+    <type name="Trialfire\Tracker\Model\Session">
+        <arguments>
+            <argument name="storage" xsi:type="object">Trialfire\Tracker\Model\Session\Storage</argument>
+        </arguments>
+    </type>
+</config>

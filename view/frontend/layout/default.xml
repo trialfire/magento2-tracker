@@ -5,16 +5,36 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
+ *
+ * Add the tracking snippet to the header and the event tracking knockout to the body.
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <body>
+        <!-- Tracking snippet include. -->
         <referenceBlock name="head.additional">
             <block class="Trialfire\Tracker\Block\Head"
                    name="trialfire_tracker_head"
                    template="Trialfire_Tracker::head.phtml"
                    before="-"
-                   ifconfig="trialfire_tracker/general/active"/>
+                   ifconfig="trialfire_tracker/general/active" />
         </referenceBlock>
+        <!-- Event tracking knockout. -->
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="trialfire_tracker_events"
+                   template="Trialfire_Tracker::events-knockout.phtml"
+                   ifconfig="trialfire_tracker/general/active">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="trialfireTrackerEvents" xsi:type="array">
+                                <item name="component" xsi:type="string">Trialfire_Tracker/js/tfEvents</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
     </body>
 </page>

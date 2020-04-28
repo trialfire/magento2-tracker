@@ -1,0 +1,18 @@
+<?php
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ * 
+ * Renders the events list into a section for a private content knockout.
+ */
+?>
+<div data-role="trialfire-tracker-events" style="display:none;"></div>
+<script type="text/x-magento-init">
+{
+  "[data-role='trialfire-tracker-events']": {
+    "Magento_Ui/js/core/app": <?= $block->getJsLayout();?>
+  }
+}
+</script>

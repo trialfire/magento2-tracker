@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ *
+ * Register observers to record events in the tracker events list.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_quote_product_add_after">
+        <observer name="trialfire_tracker_add_to_cart" instance="Trialfire\Tracker\Observer\AddToCart"/>
+    </event>
+    <!-- Customer events. -->
+    <event name="customer_register_success">
+        <observer name="trialfire_tracker_customer_register_success" instance="Trialfire\Tracker\Observer\Register" />
+    </event>
+    <event name="customer_login">
+        <observer name="trialfire_tracker_customer_login" instance="Trialfire\Tracker\Observer\Login" />
+    </event>
+    <event name="customer_address_save_after">
+        <observer name="trialfire_tracker_customer_address_save" instance="Trialfire\Tracker\Observer\Address" />
+    </event>
+</config>

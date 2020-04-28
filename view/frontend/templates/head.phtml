@@ -4,18 +4,14 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
+ * 
+ * Outputs a tracking script include at the top of every page.
  */
 ?>
 <script type="text/javascript">
 var s = document.createElement('script');
 s.src = "<?= $block->getAssetUrl(); ?>";
 s.onload = function () {
-  Trialfire.Magento = {
-    'baseUrl': '<?= $block->getUrl('trialfire/tracker', array(
-      '_nosid' => true,
-      '_secure' => $block->getRequest()->isSecure()
-    )); ?>'
-  };
   Trialfire.init('<?= $block->getApiToken(); ?>');
 };
 document.head.appendChild(s);

@@ -1,0 +1,16 @@
+<?php
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ * 
+ * Renders the events list into a block for pages that are not cacheable.
+ */
+?>
+<script>
+require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
+  tfMage.pushEvents(<?= $block->getEvents(); ?>);
+  tfMage.trackNow();
+});
+</script>

@@ -5,35 +5,32 @@
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
  * 
- * Outputs a tracking script include at the top of every page.
+ * Renders the tracker events list into a block for pages that are not cacheable.
  */
 namespace Trialfire\Tracker\Block;
 
-class Head extends \Magento\Framework\View\Element\Template {
+class Events extends \Magento\Framework\View\Element\Template {
 
+    protected $tfSessionFactory;
     protected $helper;
 
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Trialfire\Tracker\Model\SessionFactory $tfSessionFactory,
         \Trialfire\Tracker\Helper\Data $helper,
         array $data = []
     ) {
         parent::__construct($context, $data);
+        $this->tfSessionFactory = $tfSessionFactory;
         $this->helper = $helper;
     }
 
     /**
-     * Get the Trialfire API token from the module settings.
+     * Return the events list as JSON and then clear it.
      */
-    public function getApiToken() {
-        return $this->helper->getApiToken();
-    }
-
-    /**
-     * Get the Trialfire asset URL from the module settings.
-     */
-    public function getAssetUrl() {
-        return $this->helper->getAssetUrl();
+    public function getEvents() {
+        $events = $this->tfSessionFactory->create()->getEvents(true);
+        return $this->helper->jsonStringify($events);
     }
 
 }

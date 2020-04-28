@@ -13,10 +13,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
   const CONFIG_API_TOKEN = 'trialfire_tracker/general/api_token';
   const CONFIG_ASSET_URL = 'trialfire_tracker/general/asset_url';
 
+  public $logger;
+  protected $scopeConfig;
+  protected $jsonEncoder;
+
   public function __construct(
-    \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+    \Psr\Log\LoggerInterface $logger,
+    \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+    \Magento\Framework\Json\EncoderInterface $jsonEncoder
   ) {
+    $this->logger = $logger;
     $this->scopeConfig = $scopeConfig;
+    $this->jsonEncoder = $jsonEncoder;
   }
 
   // Settings
@@ -41,6 +49,13 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
       \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
       $scope
     );
+  }
+
+  /**
+   * Stringify an object as JSON.
+   */
+  public function jsonStringify($data) {
+    return $this->jsonEncoder->encode($data);
   }
 
 }
