@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ *
+ * Render a logout event into the logout success page.
+ * The usual session-based events list is not available during logout.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="trialfire_tracker_logout"
+                   template="Trialfire_Tracker::logout.phtml"
+                   before="-"
+                   ifconfig="trialfire_tracker/general/active" />
+        </referenceBlock>
+    </body>
+</page>

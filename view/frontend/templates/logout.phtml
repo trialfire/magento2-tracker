@@ -1,0 +1,17 @@
+<?php
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ * 
+ * Hardcode a logout event into the logout success page.
+ * The usual session-based events list is not available during logout.
+ */
+?>
+<script>
+require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
+  tfMage.pushEvents([{ $name: 'logout' }]);
+  tfMage.trackNow();
+});
+</script>

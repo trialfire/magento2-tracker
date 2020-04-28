@@ -34,6 +34,9 @@ define(function () {
           case 'login':
             console.log('login', event);
             break;
+          case 'logout':
+            console.log('logout', event);
+            break;
           case 'billingAddress':
             console.log('billingAddress', event);
             break;
