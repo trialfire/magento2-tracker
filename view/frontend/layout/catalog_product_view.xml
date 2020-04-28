@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ *
+ * Render a category view event into the category page.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="after.body.start">
+            <block class="Magento\Catalog\Block\Product\View"
+                   name="trialfire_tracker_category_view"
+                   template="Trialfire_Tracker::product-view.phtml"
+                   before="-"
+                   ifconfig="trialfire_tracker/general/active" />
+        </referenceBlock>
+    </body>
+</page>

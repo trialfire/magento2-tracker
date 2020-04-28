@@ -43,6 +43,12 @@ define(function () {
           case 'addToCart':
             console.log('addToCart', event);
             break;
+          case 'viewCategory':
+            console.log('viewCategory', event);
+            break;
+          case 'viewProduct':
+            console.log('viewProduct', event);
+            break;
           default:
             console.log('Unknown event:', event);
             break;

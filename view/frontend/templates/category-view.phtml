@@ -5,14 +5,15 @@
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
  * 
- * Render a logout event into the logout success page.
- * The usual session-based events list is not available during logout.
+ * Render a category view event into the category page.
  */
 ?>
 <script>
 require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
   tfMage.pushEvents([{ 
-    $name: 'logout' 
+    $name: 'viewCategory', 
+    categoryName: '<?= $block->getCurrentCategory()->getName(); ?>',
+    categoryId: '<?= $block->getCurrentCategory()->getId(); ?>'
   }]);
   tfMage.trackNow();
 });

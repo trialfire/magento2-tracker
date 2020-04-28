@@ -5,14 +5,15 @@
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
  * 
- * Render a logout event into the logout success page.
- * The usual session-based events list is not available during logout.
+ * Render a product view event into the product page.
  */
 ?>
 <script>
 require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
   tfMage.pushEvents([{ 
-    $name: 'logout' 
+    $name: 'viewProduct', 
+    productName: '<?= $block->getProduct()->getName(); ?>',
+    productId: '<?= $block->getProduct()->getId(); ?>'
   }]);
   tfMage.trackNow();
 });
