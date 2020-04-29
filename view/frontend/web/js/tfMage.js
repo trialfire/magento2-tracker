@@ -49,13 +49,23 @@ define(function () {
           case 'addToWishlist':
             console.log('addToWishlist', event);
             break;
+          case 'startCheckout':
+            console.log('startCheckout', event);
+            break;
+          case 'placeOrder':
+            console.log('palceOrder', event);
+            break;
           case 'viewCategory':
             console.log('viewCategory', event);
             break;
           case 'viewProduct':
             console.log('viewProduct', event);
             break;
+          case 'newsletter':
+            console.log('newsletter', event);
+            break;
           default:
+            // Track a generic event.
             console.log('Unknown event:', event);
             break;
         }

@@ -6,7 +6,7 @@
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
  *
- * Add the inline event tracking block to the checkout cart page.
+ * Add the inline event tracking block to checkout onepage page.
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">

@@ -34,6 +34,23 @@
     <event name="customer_address_save_after">
         <observer name="trialfire_tracker_customer_address_save" instance="Trialfire\Tracker\Observer\Address" />
     </event>
+    <!-- Started a checkout. -->
+    <event name="controller_action_predispatch_multishipping_checkout_index">
+        <observer name="trialfire_tracker_start_checkout_multi" instance="Trialfire\Tracker\Observer\StartCheckout" />
+    </event>
+    <event name="controller_action_predispatch_checkout_onepage_index">
+        <observer name="trialfire_tracker_start_checkout_onepage" instance="Trialfire\Tracker\Observer\StartCheckout" />
+    </event>
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="trialfire_tracker_start_checkout_index_index" instance="Trialfire\Tracker\Observer\StartCheckout" />
+    </event>
+    <!-- Completed an order. -->
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="trialfire_tracker_onepage_order_place" instance="Trialfire\Tracker\Observer\PlaceOrder" />
+    </event>
+    <event name="multishipping_checkout_controller_success_action">
+        <observer name="trialfire_tracker_multishipping_order_place" instance="Trialfire\Tracker\Observer\PlaceOrder" />
+    </event>
     <!-- Subscribe to newsletter. -->
     <event name="newsletter_subscriber_save_after">
         <observer name="trialfire_tracker_newsletter" instance="Trialfire\Tracker\Observer\Newsletter"/>
