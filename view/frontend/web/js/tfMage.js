@@ -43,6 +43,12 @@ define(function () {
           case 'addToCart':
             console.log('addToCart', event);
             break;
+          case 'removeFromCart':
+            console.log('removeFromCart', event);
+            break;
+          case 'addToWishlist':
+            console.log('addToWishlist', event);
+            break;
           case 'viewCategory':
             console.log('viewCategory', event);
             break;

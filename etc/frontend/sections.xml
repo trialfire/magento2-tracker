@@ -12,4 +12,16 @@
     <action name="checkout/cart/add">
         <section name="trialfire-tracker-events" />
     </action>
+    <action name="checkout/cart/delete">
+        <section name="trialfire-tracker-events" />
+    </action>
+    <action name="checkout/sidebar/removeItem">
+        <section name="trialfire-tracker-events" />
+    </action>
+    <action name="whishlist/index/add">
+        <section name="trialfire-tracker-events"/>
+    </action>
+    <action name="newsletter/subscriber/new">
+        <section name="trialfire-tracker-events"/>
+    </action>
 </config>

@@ -10,17 +10,32 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Add item to cart. -->
     <event name="sales_quote_product_add_after">
         <observer name="trialfire_tracker_add_to_cart" instance="Trialfire\Tracker\Observer\AddToCart"/>
     </event>
-    <!-- Customer events. -->
+    <!-- Remove item from cart. -->
+    <event name="sales_quote_remove_item">
+        <observer name="trialfire_tracker_remove_from_cart" instance="Trialfire\Tracker\Observer\RemoveFromCart"/>
+    </event>
+    <!-- Add item to wishlist. -->
+    <event name="wishlist_add_product">
+        <observer name="trialfire_tracker_add_to_wishlist" instance="Trialfire\Tracker\Observer\AddToWishlist" />
+    </event>
+    <!-- Customer registration. -->
     <event name="customer_register_success">
         <observer name="trialfire_tracker_customer_register_success" instance="Trialfire\Tracker\Observer\Register" />
     </event>
+    <!-- Customer login. -->
     <event name="customer_login">
         <observer name="trialfire_tracker_customer_login" instance="Trialfire\Tracker\Observer\Login" />
     </event>
+    <!-- Save an address. -->
     <event name="customer_address_save_after">
         <observer name="trialfire_tracker_customer_address_save" instance="Trialfire\Tracker\Observer\Address" />
+    </event>
+    <!-- Subscribe to newsletter. -->
+    <event name="newsletter_subscriber_save_after">
+        <observer name="trialfire_tracker_newsletter" instance="Trialfire\Tracker\Observer\Newsletter"/>
     </event>
 </config>
