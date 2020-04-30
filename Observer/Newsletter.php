@@ -24,13 +24,12 @@ class Newsletter implements \Magento\Framework\Event\ObserverInterface {
         
     public function execute(\Magento\Framework\Event\Observer $observer) {
         $email = $observer->getEvent()->getSubscriber()->getSubscriberEmail();
-        if ($email) {
-            $this->tfSessionFactory->create()->pushEvent([
-                '$name' => 'newsletter',
-                'email' => $email
-            ]);
-        }
         
+        $this->tfSessionFactory->create()->pushEvent([
+            '$name' => 'newsletter',
+            'email' => $email
+        ]);
+
         return true;
     }
     

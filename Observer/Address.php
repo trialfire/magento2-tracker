@@ -27,30 +27,29 @@ class Address implements \Magento\Framework\Event\ObserverInterface {
     
     public function execute(\Magento\Framework\Event\Observer $observer) {
         $customerAddress = $observer->getCustomerAddress();
-        if ($customerAddress) {
-            // Do not track the address if not logged in.
-            if (!$this->customerSession->isLoggedIn()) {
-                return true;
-            }
+        
+        // Do not track the address if not logged in.
+        if (!$this->customerSession->isLoggedIn()) {
+            return true;
+        }
 
-            // Ensure the address belongs to the logged in customer.
-            if ($this->customerSession->getCustomerId() != $customerAddress->getCustomerId()) {
-                return true;
-            }
+        // Ensure the address belongs to the logged in customer.
+        if ($this->customerSession->getCustomerId() != $customerAddress->getCustomerId()) {
+            return true;
+        }
 
-            // Only track the default billing address.
-            if ($customerAddress->getIsDefaultBilling()) {
-                $this->tfSessionFactory->create()->pushEvent([
-                    '$name' => 'billingAddress',
-                    'company' => $customerAddress->getCompany(),
-                    'country' => $customerAddress->getCountryId(),
-                    'city' => $customerAddress->getCity(),
-                    'region' => $customerAddress->getRegion(),
-                    'address' => $customerAddress->getStreet(),
-                    'postal' => $customerAddress->getPostcode(),
-                    'phone' => $customerAddress->getTelephone()
-                ]);    
-            }
+        // Only track the default billing address.
+        if ($customerAddress->getIsDefaultBilling()) {
+            $this->tfSessionFactory->create()->pushEvent([
+                '$name' => 'billingAddress',
+                'company' => $customerAddress->getCompany(),
+                'country' => $customerAddress->getCountryId(),
+                'city' => $customerAddress->getCity(),
+                'region' => $customerAddress->getRegion(),
+                'address' => $customerAddress->getStreet(),
+                'postal' => $customerAddress->getPostcode(),
+                'phone' => $customerAddress->getTelephone()
+            ]);    
         }
 
         return true;

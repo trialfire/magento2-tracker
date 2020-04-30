@@ -24,15 +24,14 @@ class Login implements \Magento\Framework\Event\ObserverInterface {
     
     public function execute(\Magento\Framework\Event\Observer $observer) {
         $customer = $observer->getEvent()->getCustomer();
-        if ($customer) {
-            $this->tfSessionFactory->create()->pushEvent([
-                '$name' => 'login',
-                'userId' => $customer->getId(),
-                'email' => $customer->getEmail(),
-                'firstName' => $customer->getFirstName(),
-                'lastName' => $customer->getLastName()
-            ]);
-        }
+        
+        $this->tfSessionFactory->create()->pushEvent([
+            '$name' => 'login',
+            'userId' => $customer->getId(),
+            'email' => $customer->getEmail(),
+            'firstName' => $customer->getFirstName(),
+            'lastName' => $customer->getLastName()
+        ]);
             
         return true;
     }

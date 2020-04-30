@@ -26,7 +26,8 @@ class RemoveFromCart implements \Magento\Framework\Event\ObserverInterface {
         $quoteItem = $observer->getQuoteItem();
         
         $this->tfSessionFactory->create()->pushEvent([
-            '$name' => 'removeFromCart',
+            '$event' => 'removeFromCart',
+            'name' => $quoteItem->getName(),
             'sku' => $quoteItem->getSku()
         ]);
         
