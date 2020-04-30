@@ -11,24 +11,44 @@ namespace Trialfire\Tracker\Observer;
 
 class StartCheckout implements \Magento\Framework\Event\ObserverInterface {
     
+    protected $checkoutSessionFactory;
     protected $tfSessionFactory;
     protected $helper;
     
     public function __construct(
+        \Magento\Checkout\Model\SessionFactory $checkoutSessionFactory,
         \Trialfire\Tracker\Model\SessionFactory $tfSessionFactory,
         \Trialfire\Tracker\Helper\Data $helper
     ) {
+        $this->checkoutSessionFactory = $checkoutSessionFactory;
         $this->tfSessionFactory = $tfSessionFactory;
         $this->helper = $helper;
     }
         
     public function execute(\Magento\Framework\Event\Observer $observer) {
-        $quote = $observer->getQuote();
+        $checkout = $this->checkoutSessionFactory->create();
 
-        $this->tfSessionFactory->create()->pushEvent([
-            '$name' => 'startCheckout',
-            'sku' => 'test'
-        ]);
+        $quote = $checkout->getQuote();
+        $items = $quote->getAllVisibleItems();
+        if (!empty($items)) {
+            $visibleItems = [];
+            foreach ($items as $item) {
+                $visibleItems[] = [
+                    'name' => $item->getName(),
+                    'sku' => $item->getSku(),
+                    'price' => $item->getPrice(),
+                    'quantity' => $item->getQty()
+                ];
+            }
+    
+            $this->tfSessionFactory->create()->pushEvent([
+                '$name' => 'startCheckout',
+                'quoteId' => $quote->getId(),
+                'total' => $quote->getGrandTotal(),
+                'currency' => $this->helper->getCurrencyCode(),
+                'products' => $visibleItems
+            ]);    
+        }
         
         return true;
     }

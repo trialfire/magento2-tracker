@@ -56,7 +56,6 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface {
                     'name' => $item->getName(),
                     'sku' => $item->getSku(),
                     'price' => $item->getProduct()->getFinalPrice(),
-                    'currency' => $this->helper->getCurrencyCode(),
                     'quantity' => $quantity
                 ];
             }
@@ -64,6 +63,7 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface {
         
         $this->tfSessionFactory->create()->pushEvent([
             '$name' => 'addToCart',
+            'currency' => $this->helper->getCurrencyCode(),
             'products' => $visibleItems
         ]);
         
