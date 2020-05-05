@@ -62,6 +62,21 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     }
 
     /**
+     * Format an address as an array.
+     */
+    public function formatAddress($address) {
+        return [
+            'company' => $address->getCompany(),
+            'country' => $address->getCountryId(),
+            'city' => $address->getCity(),
+            'region' => $address->getRegion(),
+            'address' => join(', ', $address->getStreet()),
+            'postal' => $address->getPostcode(),
+            'phone' => $address->getTelephone()
+        ];
+    }
+
+    /**
      * Stringify an object as JSON.
      */
     public function jsonStringify($data) {

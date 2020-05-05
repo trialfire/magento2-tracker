@@ -42,14 +42,9 @@ class Address implements \Magento\Framework\Event\ObserverInterface {
         if ($customerAddress->getIsDefaultBilling()) {
             $this->tfSessionFactory->create()->pushEvent([
                 '$name' => 'billingAddress',
-                'company' => $customerAddress->getCompany(),
-                'country' => $customerAddress->getCountryId(),
-                'city' => $customerAddress->getCity(),
-                'region' => $customerAddress->getRegion(),
-                'address' => $customerAddress->getStreet(),
-                'postal' => $customerAddress->getPostcode(),
-                'phone' => $customerAddress->getTelephone()
-            ]);    
+                'userId' => $customerAddress->getCustomerId(),
+                'props' => $this->helper->formatAddress($customerAddress)
+            ]);
         }
 
         return true;

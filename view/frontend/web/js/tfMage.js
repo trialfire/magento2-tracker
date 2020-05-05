@@ -29,48 +29,56 @@ define(function () {
         var event = eventQueue.shift();
         switch (event.$name) {
           case 'register':
-            console.log('register', event);
+            Trialfire.do('track', 'Register', event.props);
             break;
           case 'login':
-            console.log('login', event);
+            Trialfire.do('identify', event.userId, event.props);
+            Trialfire.do('track', 'Login', {
+              userId: event.userId,
+              email: event.props.email
+            });
             break;
           case 'logout':
-            console.log('logout', event);
+            Trialfire.do('track', 'Logout', {});
+            Trialfire.do('logout');
             break;
           case 'billingAddress':
-            console.log('billingAddress', event);
+            Trialfire.do('identify', event.userId, event.props);
+            Trialfire.do('track', 'Updated Default Billing Address', event.props);
             break;
           case 'addToCart':
-            console.log('addToCart', event);
+            Trialfire.do('track', 'Add To Cart', event.props);
             break;
           case 'removeFromCart':
-            console.log('removeFromCart', event);
+            Trialfire.do('track', 'Remove From Cart', event.props);
             break;
           case 'addToWishlist':
-            console.log('addToWishlist', event);
+            Trialfire.do('track', 'Add To Wishlist', event.props);
             break;
           case 'startCheckout':
-            console.log('startCheckout', event);
+            Trialfire.do('track', 'Started Checkout', event.props);
+            break;
+          case 'orderIdentify':
+            Trialfire.do('identify', event.userId, event.props);
             break;
           case 'placeOrder':
-            console.log('palceOrder', event);
+            Trialfire.do('track', 'Completed Order', event.props);
             break;
           case 'viewCategory':
-            console.log('viewCategory', event);
+            Trialfire.do('track', 'Viewed Category', event.props);
             break;
           case 'viewProduct':
-            console.log('viewProduct', event);
+            Trialfire.do('track', 'Viewed Product', event.props);
             break;
           case 'newsletter':
-            console.log('newsletter', event);
+            Trialfire.do('track', 'Subscribed Newsletter', event.props);
             break;
           default:
-            // Track a generic event.
-            console.log('Unknown event:', event);
+            console.log('tfMage: unknown event:', event);
             break;
         }
       } catch (error) {
-        console.log('failed to track', event, error);
+        console.log('tfMage: error', event, error);
       }
     }
   }

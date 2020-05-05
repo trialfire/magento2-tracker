@@ -9,10 +9,20 @@
  */
 ?>
 <script type="text/javascript">
-var s = document.createElement('script');
-s.src = "<?= $block->getAssetUrl(); ?>";
-s.onload = function () {
-  Trialfire.init('<?= $block->getApiToken(); ?>');
-};
+var s = document.createElement('script'),
+    tf = { 
+      $q: [], 
+      do: function () { 
+        tf.$q.push([].slice.call(arguments)); 
+      }
+    };
+[ 'init', 'ready', 'identify', 'property', 'logout', 'track', 'optout' ].forEach(function (m) {
+  tf[m] = function () {
+    tf.do.apply(null, [].slice.call(arguments));
+  };
+});
+window.Trialfire = tf;
+s.src = "<?= $block->getAssetUrl(); ?>"; 
 document.head.appendChild(s);
+Trialfire.init('<?= $block->getApiToken(); ?>');
 </script>

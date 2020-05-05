@@ -55,16 +55,18 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface {
                 $visibleItems[] = [
                     'name' => $item->getName(),
                     'sku' => $item->getSku(),
-                    'price' => $item->getProduct()->getFinalPrice(),
-                    'quantity' => $quantity
+                    'price' => floatval($item->getProduct()->getFinalPrice()),
+                    'quantity' => floatval($quantity)
                 ];
             }
         }
         
         $this->tfSessionFactory->create()->pushEvent([
             '$name' => 'addToCart',
-            'currency' => $this->helper->getCurrencyCode(),
-            'products' => $visibleItems
+            'props' => [
+                'currency' => $this->helper->getCurrencyCode(),
+                'products' => $visibleItems
+            ]
         ]);
         
         return true;

@@ -27,8 +27,10 @@ class AddToWishlist implements \Magento\Framework\Event\ObserverInterface {
         
         $this->tfSessionFactory->create()->pushEvent([
             '$name' => 'addToWishlist',
-            'sku' => $product->getSku(),
-            'name' => $product->getName(),
+            'props' => [
+                'sku' => $product->getSku(),
+                'name' => $product->getName()
+            ]
         ]);
         
         return true;

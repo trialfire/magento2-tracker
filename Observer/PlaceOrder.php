@@ -11,31 +11,109 @@ namespace Trialfire\Tracker\Observer;
 
 class PlaceOrder implements \Magento\Framework\Event\ObserverInterface {
     
+    protected $order;
+    protected $taxItem;
+    protected $customerSession;
+    protected $addressFactory;
     protected $tfSessionFactory;
     protected $helper;
     
     public function __construct(
+        \Magento\Sales\Model\Order $order,
+        \Magento\Sales\Model\ResourceModel\Order\Tax\Item $taxItem,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Customer\Model\AddressFactory $addressFactory,
         \Trialfire\Tracker\Model\SessionFactory $tfSessionFactory,
         \Trialfire\Tracker\Helper\Data $helper
     ) {
+        $this->order = $order;
+        $this->taxItem = $taxItem;
+        $this->customerSession = $customerSession;
+        $this->addressFactory = $addressFactory;
         $this->tfSessionFactory = $tfSessionFactory;
         $this->helper = $helper;
+    }
+
+    /**
+     * Push an event which identifies the visitor (customer or guest) who placed the order.
+     */
+    protected function identifyWhoPlacedOrder($tfSession, $order) {
+        $customerId = null;
+        $identityProps = [
+            'email' => $order->getCustomerEmail()
+        ];
+
+        // Collect the order billing address by default.
+        $billingAddress = $order->getBillingAddress();
+        if ($this->customerSession->isLoggedIn()) {
+            $customerId = $this->customerSession->getCustomerId();
+            $customer = $this->customerSession->getCustomer();
+            $identityProps['userId'] = $customer->getId();
+
+            // Collect the default billing address when available.
+            $billingAddressId = $customer->getDefaultBilling();
+            if ($billingAddressId) {
+                $billingAddress = $this->addressFactory->create()->load($billingAddressId);
+            }
+        }
+        $addressProps = $this->helper->formatAddress($billingAddress);
+        
+        $tfSession->pushEvent([
+            '$name' => 'orderIdentify',
+            'userId' => $customerId,
+            'props'=> array_merge($identityProps, $addressProps)
+        ]);
     }
         
     public function execute(\Magento\Framework\Event\Observer $observer) {
         $tfSession = $this->tfSessionFactory->create();
+
+        $trackedIdentity = false;
         $orderIds = $observer->getEvent()->getOrderIds();
         foreach ($orderIds as $orderId) {
             if (!$tfSession->isRecentlyTrackedOrderId($orderId)) {
                 // Do not track this order again in this session.
                 $tfSession->pushRecentlyTrackedOrderId($orderId);
 
-                //$order = $this->order->load($orderid);
+                // Load the order.
+                $order = $this->order->load($orderId);
 
-                $tfSession->pushEvent([
-                    '$name' => 'placeOrder',
-                    'orderId' => $orderId
-                ]);
+                // Track the identity of the customer or guest.
+                if (!$trackedIdentity) {
+                    $this->identifyWhoPlacedOrder($tfSession, $order);
+                    $trackedIdentity = true;
+                }
+                
+                // Track the orders that were placed.
+                $items = $order->getAllVisibleItems();
+                if (!empty($items)) {
+                    $visibleItems = [];
+                    foreach ($items as $item) {
+                        $visibleItems[] = [
+                            'name' => $item->getName(),
+                            'sku' => $item->getSku(),
+                            'price' => floatval($item->getPrice()),
+                            'quantity' => floatval($item->getQtyOrdered())
+                        ];
+                    }
+            
+                    $tfSession->pushEvent([
+                        '$name' => 'placeOrder',
+                        'props' => [
+                            'orderId' => $orderId,
+                            'quoteId' => $order->getQuoteId(),
+                            'subtotal' => floatval($order->getSubTotal()),
+                            'total' => floatval($order->getGrandTotal()),
+                            'shippingMethod' => $order->getShippingDescription(),
+                            'shipping' => floatval($order->getShippingAmount()),
+                            'tax' => floatval($order->getTaxAmount()),
+                            'discount' => floatval($order->getDiscountAmount()),
+                            'coupon' => $order->getCouponCode(),
+                            'currency' => $this->helper->getCurrencyCode(),
+                            'products' => $visibleItems
+                        ]
+                    ]);    
+                }
             }
         }
         

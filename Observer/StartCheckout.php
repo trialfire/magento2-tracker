@@ -36,17 +36,20 @@ class StartCheckout implements \Magento\Framework\Event\ObserverInterface {
                 $visibleItems[] = [
                     'name' => $item->getName(),
                     'sku' => $item->getSku(),
-                    'price' => $item->getPrice(),
-                    'quantity' => $item->getQty()
+                    'price' => floatval($item->getPrice()),
+                    'quantity' => floatval($item->getQty())
                 ];
             }
     
             $this->tfSessionFactory->create()->pushEvent([
                 '$name' => 'startCheckout',
-                'quoteId' => $quote->getId(),
-                'total' => $quote->getGrandTotal(),
-                'currency' => $this->helper->getCurrencyCode(),
-                'products' => $visibleItems
+                'props' => [
+                    'quoteId' => $quote->getId(),
+                    'total' => floatval($quote->getGrandTotal()),
+                    'coupon' => $quote->getCouponCode(),
+                    'currency' => $this->helper->getCurrencyCode(),
+                    'products' => $visibleItems
+                ]
             ]);    
         }
         

@@ -11,9 +11,11 @@
 <script>
 require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
   tfMage.pushEvents([{ 
-    $name: 'viewProduct', 
-    productName: '<?= $block->getProduct()->getName(); ?>',
-    productId: '<?= $block->getProduct()->getId(); ?>'
+    $name: 'viewProduct',
+    props: { 
+      productName: '<?= $block->getProduct()->getName(); ?>',
+      productId: '<?= $block->getProduct()->getId(); ?>'
+    }
   }]);
   tfMage.trackNow();
 });
