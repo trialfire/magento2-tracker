@@ -27,9 +27,9 @@ class Newsletter implements \Magento\Framework\Event\ObserverInterface {
         
         $this->tfSessionFactory->create()->pushEvent([
             '$name' => 'newsletter',
-            'props' => {
+            'props' => [
                 'email' => $email
-            }
+            ]
         ]);
 
         return true;
