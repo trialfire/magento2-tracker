@@ -18,7 +18,7 @@ var s = document.createElement('script'),
     };
 [ 'init', 'ready', 'identify', 'property', 'logout', 'track', 'optout' ].forEach(function (m) {
   tf[m] = function () {
-    tf.do.apply(null, [].slice.call(arguments));
+    tf.do.apply(null, [m].concat([].slice.call(arguments)));
   };
 });
 window.Trialfire = tf;
