@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Trialfire
+ * @package     Trialfire_Tracker
+ * @author      Mark Lieberman <mark@trialfire.com>
+ * @copyright   Copyright (c) Trialfire
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="trialfire-js" type="host">*.trialfire.com</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="trialfire-pixel" type="host">*.trialfire.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>
