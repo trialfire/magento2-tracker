@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Capture the customer login event.
  */
 namespace Trialfire\Tracker\Observer;
 
-class Login implements \Magento\Framework\Event\ObserverInterface {
+class Login implements \Magento\Framework\Event\ObserverInterface
+{
     
     protected $addressFactory;
     protected $tfSessionFactory;
@@ -25,7 +26,8 @@ class Login implements \Magento\Framework\Event\ObserverInterface {
         $this->helper = $helper;
     }
     
-    public function execute(\Magento\Framework\Event\Observer $observer) {
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
         $customer = $observer->getEvent()->getCustomer();
         
         // Collect the default billing address if available.
@@ -48,6 +50,4 @@ class Login implements \Magento\Framework\Event\ObserverInterface {
             
         return true;
     }
-        
 }
-        

@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Capture the add to cart event.
  */
 namespace Trialfire\Tracker\Observer;
 
-class AddToCart implements \Magento\Framework\Event\ObserverInterface {
+class AddToCart implements \Magento\Framework\Event\ObserverInterface
+{
     
     protected $productRepository;
     protected $tfSessionFactory;
@@ -25,7 +26,8 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface {
         $this->helper = $helper;
     }
         
-    public function execute(\Magento\Framework\Event\Observer $observer) {
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
         $items = $observer->getItems();
 
         // Product type constants.
@@ -38,8 +40,7 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface {
             if ($product->getTypeId() == $typeConfigurable) {
                 // This is a configurable product.
                 // Ignore these types of products.
-            } else
-            if ($product->getTypeId() == $typeBundle) {
+            } elseif ($product->getTypeId() == $typeBundle) {
                 // This is a bundled product.
                 // Record that the bundle is in the cart but do not include the final price.
                 $visibleItems[] = [
@@ -71,6 +72,4 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface {
         
         return true;
     }
-    
 }
-    

@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Capture the default billing address update event.
  */
 namespace Trialfire\Tracker\Observer;
 
-class Address implements \Magento\Framework\Event\ObserverInterface {
+class Address implements \Magento\Framework\Event\ObserverInterface
+{
     
     protected $customerSession;
     protected $tfSessionFactory;
@@ -25,7 +26,8 @@ class Address implements \Magento\Framework\Event\ObserverInterface {
         $this->helper = $helper;
     }
     
-    public function execute(\Magento\Framework\Event\Observer $observer) {
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
         $customerAddress = $observer->getCustomerAddress();
         
         // Do not track the address if not logged in.
@@ -49,6 +51,4 @@ class Address implements \Magento\Framework\Event\ObserverInterface {
 
         return true;
     }
-        
 }
-        

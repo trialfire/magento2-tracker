@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Capture the started checkout event.
  */
 namespace Trialfire\Tracker\Observer;
 
-class StartCheckout implements \Magento\Framework\Event\ObserverInterface {
+class StartCheckout implements \Magento\Framework\Event\ObserverInterface
+{
     
     protected $checkoutSessionFactory;
     protected $tfSessionFactory;
@@ -25,7 +26,8 @@ class StartCheckout implements \Magento\Framework\Event\ObserverInterface {
         $this->helper = $helper;
     }
         
-    public function execute(\Magento\Framework\Event\Observer $observer) {
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
         $checkout = $this->checkoutSessionFactory->create();
 
         $quote = $checkout->getQuote();
@@ -50,11 +52,9 @@ class StartCheckout implements \Magento\Framework\Event\ObserverInterface {
                     'currency' => $this->helper->getCurrencyCode(),
                     'products' => $visibleItems
                 ]
-            ]);    
+            ]);
         }
         
         return true;
     }
-    
 }
-    

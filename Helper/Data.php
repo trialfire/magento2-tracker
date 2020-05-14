@@ -7,7 +7,8 @@
  */
 namespace Trialfire\Tracker\Helper;
 
-class Data extends \Magento\Framework\App\Helper\AbstractHelper {
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
+{
 
     const CONFIG_ACTIVE = 'trialfire_tracker/general/active';
     const CONFIG_API_TOKEN = 'trialfire_tracker/general/api_token';
@@ -35,7 +36,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     /**
      * Get the Trialfire API token from the module settings.
      */
-    public function getApiToken($scope = null) {
+    public function getApiToken($scope = null)
+    {
         return $this->scopeConfig->getValue(
             self::CONFIG_API_TOKEN,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
@@ -46,7 +48,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     /**
      * Get the Trialfire asset URL from the module settings.
      */
-    public function getAssetUrl($scope = null) {
+    public function getAssetUrl($scope = null)
+    {
         return $this->scopeConfig->getValue(
             self::CONFIG_ASSET_URL,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
@@ -57,14 +60,16 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     /**
      * Get the currency code for the store.
      */
-    public function getCurrencyCode() {
+    public function getCurrencyCode()
+    {
         return $this->storeManager->getStore()->getCurrentCurrency()->getCode();
     }
 
     /**
      * Format an address as an array.
      */
-    public function formatAddress($address) {
+    public function formatAddress($address)
+    {
         return [
             'company' => $address->getCompany(),
             'country' => $address->getCountryId(),
@@ -79,8 +84,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
     /**
      * Stringify an object as JSON.
      */
-    public function jsonStringify($data) {
+    public function jsonStringify($data)
+    {
         return $this->jsonEncoder->encode($data);
     }
-
 }

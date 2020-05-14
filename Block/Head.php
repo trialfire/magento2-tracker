@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Outputs a tracking script include at the top of every page.
  */
 namespace Trialfire\Tracker\Block;
 
-class Head extends \Magento\Framework\View\Element\Template {
+class Head extends \Magento\Framework\View\Element\Template
+{
 
     protected $helper;
 
@@ -25,15 +26,16 @@ class Head extends \Magento\Framework\View\Element\Template {
     /**
      * Get the Trialfire API token from the module settings.
      */
-    public function getApiToken() {
+    public function getApiToken()
+    {
         return $this->helper->getApiToken();
     }
 
     /**
      * Get the Trialfire asset URL from the module settings.
      */
-    public function getAssetUrl() {
+    public function getAssetUrl()
+    {
         return $this->helper->getAssetUrl();
     }
-
 }

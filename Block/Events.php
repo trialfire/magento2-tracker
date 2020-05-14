@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Renders the tracker events list into a block for pages that are not cacheable.
  */
 namespace Trialfire\Tracker\Block;
 
-class Events extends \Magento\Framework\View\Element\Template {
+class Events extends \Magento\Framework\View\Element\Template
+{
 
     protected $tfSessionFactory;
     protected $helper;
@@ -28,9 +29,9 @@ class Events extends \Magento\Framework\View\Element\Template {
     /**
      * Return the events list as JSON and then clear it.
      */
-    public function getEvents() {
+    public function getEvents()
+    {
         $events = $this->tfSessionFactory->create()->getEvents(true);
         return $this->helper->jsonStringify($events);
     }
-
 }

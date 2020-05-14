@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Capture the add to wishlist event.
  */
 namespace Trialfire\Tracker\Observer;
 
-class AddToWishlist implements \Magento\Framework\Event\ObserverInterface {
+class AddToWishlist implements \Magento\Framework\Event\ObserverInterface
+{
     
     protected $tfSessionFactory;
     protected $helper;
@@ -22,7 +23,8 @@ class AddToWishlist implements \Magento\Framework\Event\ObserverInterface {
         $this->helper = $helper;
     }
         
-    public function execute(\Magento\Framework\Event\Observer $observer) {
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
         $product = $observer->getItem()->getProduct();
         
         $this->tfSessionFactory->create()->pushEvent([
@@ -35,6 +37,4 @@ class AddToWishlist implements \Magento\Framework\Event\ObserverInterface {
         
         return true;
     }
-    
 }
-    

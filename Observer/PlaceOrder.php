@@ -4,12 +4,13 @@
  * @package     Trialfire_Tracker
  * @author      Mark Lieberman <mark@trialfire.com>
  * @copyright   Copyright (c) Trialfire
- * 
+ *
  * Capture the order placed event.
  */
 namespace Trialfire\Tracker\Observer;
 
-class PlaceOrder implements \Magento\Framework\Event\ObserverInterface {
+class PlaceOrder implements \Magento\Framework\Event\ObserverInterface
+{
     
     protected $order;
     protected $taxItem;
@@ -37,7 +38,8 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface {
     /**
      * Push an event which identifies the visitor (customer or guest) who placed the order.
      */
-    protected function identifyWhoPlacedOrder($tfSession, $order) {
+    protected function identifyWhoPlacedOrder($tfSession, $order)
+    {
         $customerId = null;
         $identityProps = [
             'email' => $order->getCustomerEmail()
@@ -65,7 +67,8 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface {
         ]);
     }
         
-    public function execute(\Magento\Framework\Event\Observer $observer) {
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
         $tfSession = $this->tfSessionFactory->create();
 
         $trackedIdentity = false;
@@ -112,13 +115,11 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface {
                             'currency' => $this->helper->getCurrencyCode(),
                             'products' => $visibleItems
                         ]
-                    ]);    
+                    ]);
                 }
             }
         }
         
         return true;
     }
-    
 }
-    

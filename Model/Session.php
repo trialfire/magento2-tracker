@@ -9,7 +9,8 @@
  */
 namespace Trialfire\Tracker\Model;
 
-class Session extends \Magento\Framework\Session\SessionManager {
+class Session extends \Magento\Framework\Session\SessionManager
+{
     
     // Events that are captured from the backend (typically via observers) are queued in this event list. The list
     // is retrieved and rendered by a block for non-cacheable pages, or by private content knockout for cached pages.
@@ -19,16 +20,18 @@ class Session extends \Magento\Framework\Session\SessionManager {
     /**
      * Clear the list of events to track.
      */
-    public function clearEvents() {
+    public function clearEvents()
+    {
         return $this->setData(self::KEY_EVENTS, []);
     }
 
     /**
      * Get the list of events to track.
-     * 
+     *
      * @param bool $clear Clear the events list after returning it.
      */
-    public function getEvents($clear) {
+    public function getEvents($clear)
+    {
         $events = $this->getData(self::KEY_EVENTS);
         $events = is_array($events) ? $events : [];
         if ($clear) {
@@ -40,7 +43,8 @@ class Session extends \Magento\Framework\Session\SessionManager {
     /**
      * Add an event to the events list.
      */
-    public function pushEvent($event) {
+    public function pushEvent($event)
+    {
         $events = $this->getEvents(false);
         array_push($events, $event);
         $this->setData(self::KEY_EVENTS, $events);
@@ -54,7 +58,8 @@ class Session extends \Magento\Framework\Session\SessionManager {
     /**
      * Get the list of recently tracked order IDs.
      */
-    public function getRecentlyTrackedOrderIds() {
+    public function getRecentlyTrackedOrderIds()
+    {
         $recentIds = $this->getData(self::KEY_RECENT_ORDER_IDS);
         $recentIds = is_array($recentIds) ? $recentIds : [];
         return $recentIds;
@@ -63,7 +68,8 @@ class Session extends \Magento\Framework\Session\SessionManager {
     /**
      * Add an order ID to the recently tracked order IDs list.
      */
-    public function pushRecentlyTrackedOrderId($orderId) {
+    public function pushRecentlyTrackedOrderId($orderId)
+    {
         $recentIds = $this->getRecentlyTrackedOrderIds();
         
         // Remember up to 10 unique order IDs.
@@ -77,9 +83,8 @@ class Session extends \Magento\Framework\Session\SessionManager {
     /**
      * True if the order ID was recently tracked, otherwise false.
      */
-    public function isRecentlyTrackedOrderId($orderId) {
+    public function isRecentlyTrackedOrderId($orderId)
+    {
         return in_array($orderId, $this->getRecentlyTrackedOrderIds());
     }
-        
 }
-    
