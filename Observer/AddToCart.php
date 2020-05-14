@@ -40,6 +40,7 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface
             if ($product->getTypeId() == $typeConfigurable) {
                 // This is a configurable product.
                 // Ignore these types of products.
+                continue;
             } elseif ($product->getTypeId() == $typeBundle) {
                 // This is a bundled product.
                 // Record that the bundle is in the cart but do not include the final price.
