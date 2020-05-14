@@ -13,8 +13,8 @@ require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
   tfMage.pushEvents([{ 
     $name: 'viewProduct',
     props: { 
-      productName: '<?= $block->getProduct()->getName(); ?>',
-      productId: '<?= $block->getProduct()->getId(); ?>'
+      productName: '<?= $block->escapeJs($block->getProduct()->getName()); ?>',
+      productId: '<?= $block->escapeJs($block->getProduct()->getId()); ?>'
     }
   }]);
   tfMage.trackNow();

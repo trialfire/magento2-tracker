@@ -10,7 +10,7 @@
 ?>
 <script>
 require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
-  tfMage.pushEvents(<?= $block->getEvents(); ?>);
+  tfMage.pushEvents(<?= /* @noEscape */ $block->getEvents(); ?>);
   tfMage.trackNow();
 });
 </script>

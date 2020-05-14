@@ -13,8 +13,8 @@ require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {
   tfMage.pushEvents([{ 
     $name: 'viewCategory', 
     props: {
-      categoryName: '<?= $block->getCurrentCategory()->getName(); ?>',
-      categoryId: '<?= $block->getCurrentCategory()->getId(); ?>'
+      categoryName: '<?= $block->escapeJs($block->getCurrentCategory()->getName()); ?>',
+      categoryId: '<?=  $block->escapeJs($block->getCurrentCategory()->getId()); ?>'
     }
   }]);
   tfMage.trackNow();

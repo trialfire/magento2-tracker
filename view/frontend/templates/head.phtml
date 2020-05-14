@@ -22,7 +22,7 @@ var s = document.createElement('script'),
   };
 });
 window.Trialfire = tf;
-s.src = "<?= $block->getAssetUrl(); ?>"; 
+s.src = "<?= $block->escapeJs($block->getAssetUrl()); ?>"; 
 document.head.appendChild(s);
-Trialfire.init('<?= $block->getApiToken(); ?>');
+Trialfire.init('<?= $block->escapeJs($block->getApiToken()); ?>');
 </script>
