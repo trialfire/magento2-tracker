@@ -47,13 +47,13 @@ define(function () {
             Trialfire.do('track', 'Updated Default Billing Address', event.props);
             break;
           case 'addToCart':
-            Trialfire.do('track', 'Add To Cart', event.props);
+            Trialfire.do('track', 'Added to Cart', event.props);
             break;
           case 'removeFromCart':
-            Trialfire.do('track', 'Remove From Cart', event.props);
+            Trialfire.do('track', 'Removed from Cart', event.props);
             break;
           case 'addToWishlist':
-            Trialfire.do('track', 'Add To Wishlist', event.props);
+            Trialfire.do('track', 'Add to Wishlist', event.props);
             break;
           case 'startCheckout':
             Trialfire.do('track', 'Started Checkout', event.props);
