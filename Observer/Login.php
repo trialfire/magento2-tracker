@@ -40,8 +40,9 @@ class Login implements \Magento\Framework\Event\ObserverInterface
 
         $this->tfSessionFactory->create()->pushEvent([
             '$name' => 'login',
+            'apiToken' => $this->helper->getApiToken(),
             'userId' => $customer->getId(),
-            'props' => array_merge([
+            'traits' => array_merge([
                 'email' => $customer->getEmail(),
                 'firstName' => $customer->getFirstname(),
                 'lastName' => $customer->getLastname()

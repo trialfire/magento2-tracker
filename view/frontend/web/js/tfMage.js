@@ -9,82 +9,136 @@
 define(function () {
   'use strict';
 
-  var eventQueue = [];
+  var service = {
+    /**
+     * Queue of events to be tracked.
+     */
+    eventQueue: [],
+
+    /**
+     * Active handlers for all supported events.
+     */
+    eventHandlers: {},
+
+    /**
+     * Define the default handler for all supported events.
+     */
+    defaultEventHandlers: {
+      'register': function () {
+        Trialfire.do('track', 'Register', this.event.traits);
+      },
+      'login': function () {
+        Trialfire.do('identify', this.event.userId, this.event.traits);
+        Trialfire.do('track', 'Login', {
+          userId: this.event.userId,
+          email: this.event.traits.email
+        });
+      },
+      'logout': function () {
+        Trialfire.do('track', 'Logout', {});
+        Trialfire.do('logout');
+      },
+      'billingAddress': function () {
+        Trialfire.do('identify', this.event.userId, this.event.traits);
+        Trialfire.do('track', 'Updated Default Billing Address', this.event.traits);
+      },
+      'viewCategory': function () {
+        Trialfire.do('track', 'Viewed Category', this.event.props);
+      },
+      'viewProduct': function () {
+        Trialfire.do('track', 'Viewed Product', this.event.props);
+      },
+      'addToCart': function () {
+        Trialfire.do('track', 'Added to Cart', this.event.props);
+      },
+      'removeFromCart': function () {
+        Trialfire.do('track', 'Removed from Cart', this.event.props);
+      },
+      'addToWishlist': function () {
+        Trialfire.do('track', 'Add to Wishlist', this.event.props);
+      },
+      'newsletter': function () {
+        Trialfire.do('track', 'Subscribed Newsletter', this.event.props);
+      },
+      'startCheckout': function () {
+        Trialfire.do('track', 'Started Checkout', this.event.props);
+      },
+      'placeOrder': function () {
+        Trialfire.do('identify', this.event.userId, this.event.traits);
+        Trialfire.do('track', 'Completed Order', this.event.props);
+      }
+    }
+  };
+
+  // Initialize the service using the default event handlers.
+  for (var eventName in service.defaultEventHandlers) {
+    if (service.defaultEventHandlers.hasOwnProperty(eventName)) {
+      service.eventHandlers[eventName] = service.defaultEventHandlers[eventName];
+    }
+  }
+
+  /**
+   * Call the default handler for an event.
+   */
+  service.callDefaultEventHandler = function callDefaultEventHandler (event) {
+    var eventHandler = service.defaultEventHandlers[event.$name];
+    if (typeof eventHandler === 'function') {
+      return eventHandler.call({
+        tfMage: service,
+        event: event
+      });
+    } else {
+      throw new Error('no default handler for ' + event.$name);
+    }
+  };
+
+  /**
+   * Call the handler for an event.
+   */
+  service.callEventHandler = function callEventHandler (event) {
+    var eventHandler = service.eventHandlers[event.$name];
+    if (typeof eventHandler === 'function') {
+      return eventHandler.call({
+        tfMage: service,
+        event: event
+      });
+    } else {
+      throw new Error('no handler for ' + event.$name);
+    }
+  };
+
+  /**
+   * Set the handler for an event.
+   */
+  service.setEventHandler = function setEventHandler (eventName, handler) {
+    if (typeof handler === 'function') {
+      service.eventHandlers[eventName] = handler;
+    } else {
+      throw new Error('handler must be a function');
+    }
+  };
 
   /**
    * Add an array of events to be tracked.
    */
-  function pushEvents (events) {
+  service.pushEvents = function pushEvents (events) {
     for (var i = 0; i < events.length; i++) {
-      eventQueue.push(events[i]);
+      service.eventQueue.push(events[i]);
     }
-  }
+  };
 
   /**
-   * Emit track calls for each event in the queue.
+   * Invoke the handler for each event in the queue.
    */
-  function trackNow () {
-    while (eventQueue.length) {
+  service.trackNow = function trackNow () {
+    while (service.eventQueue.length) {
       try {
-        var event = eventQueue.shift();
-        switch (event.$name) {
-          case 'register':
-            Trialfire.do('track', 'Register', event.props);
-            break;
-          case 'login':
-            Trialfire.do('identify', event.userId, event.props);
-            Trialfire.do('track', 'Login', {
-              userId: event.userId,
-              email: event.props.email
-            });
-            break;
-          case 'logout':
-            Trialfire.do('track', 'Logout', {});
-            Trialfire.do('logout');
-            break;
-          case 'billingAddress':
-            Trialfire.do('identify', event.userId, event.props);
-            Trialfire.do('track', 'Updated Default Billing Address', event.props);
-            break;
-          case 'addToCart':
-            Trialfire.do('track', 'Added to Cart', event.props);
-            break;
-          case 'removeFromCart':
-            Trialfire.do('track', 'Removed from Cart', event.props);
-            break;
-          case 'addToWishlist':
-            Trialfire.do('track', 'Add to Wishlist', event.props);
-            break;
-          case 'startCheckout':
-            Trialfire.do('track', 'Started Checkout', event.props);
-            break;
-          case 'orderIdentify':
-            Trialfire.do('identify', event.userId, event.props);
-            break;
-          case 'placeOrder':
-            Trialfire.do('track', 'Completed Order', event.props);
-            break;
-          case 'viewCategory':
-            Trialfire.do('track', 'Viewed Category', event.props);
-            break;
-          case 'viewProduct':
-            Trialfire.do('track', 'Viewed Product', event.props);
-            break;
-          case 'newsletter':
-            Trialfire.do('track', 'Subscribed Newsletter', event.props);
-            break;
-          default:
-            console.log('tfMage: unknown event:', event);
-            break;
-        }
+        service.callEventHandler(service.eventQueue.shift());
       } catch (error) {
         console.log('tfMage: error', event, error);
       }
     }
-  }
-
-  return {
-    pushEvents: pushEvents,
-    trackNow: trackNow
   };
+
+  return service;
 });

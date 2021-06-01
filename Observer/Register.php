@@ -40,7 +40,8 @@ class Register implements \Magento\Framework\Event\ObserverInterface
         
         $this->tfSessionFactory->create()->pushEvent([
             '$name' => 'register',
-            'props' => array_merge([
+            'apiToken' => $this->helper->getApiToken(),
+            'traits' => array_merge([
                 'userId' => $customer->getId(),
                 'email' => $customer->getEmail(),
                 'firstName' => $customer->getFirstname(),

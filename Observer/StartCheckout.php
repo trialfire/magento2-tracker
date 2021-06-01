@@ -45,6 +45,7 @@ class StartCheckout implements \Magento\Framework\Event\ObserverInterface
     
             $this->tfSessionFactory->create()->pushEvent([
                 '$name' => 'startCheckout',
+                'apiToken' => $this->helper->getApiToken(),
                 'props' => [
                     'quoteId' => $quote->getId(),
                     'total' => floatval($quote->getGrandTotal()),

@@ -44,8 +44,9 @@ class Address implements \Magento\Framework\Event\ObserverInterface
         if ($customerAddress->getIsDefaultBilling()) {
             $this->tfSessionFactory->create()->pushEvent([
                 '$name' => 'billingAddress',
+                'apiToken' => $this->helper->getApiToken(),
                 'userId' => $customerAddress->getCustomerId(),
-                'props' => $this->helper->formatAddress($customerAddress)
+                'traits' => $this->helper->formatAddress($customerAddress)
             ]);
         }
 

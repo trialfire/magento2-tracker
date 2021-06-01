@@ -36,7 +36,7 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface
     }
 
     /**
-     * Push an event which identifies the visitor (customer or guest) who placed the order.
+     * Get the identity of the visitor (customer or guest) who placed the order.
      */
     protected function identifyWhoPlacedOrder($tfSession, $order)
     {
@@ -50,8 +50,7 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface
         if ($this->customerSession->isLoggedIn()) {
             $customerId = $this->customerSession->getCustomerId();
             $customer = $this->customerSession->getCustomer();
-            $identityProps['userId'] = $customer->getId();
-
+            
             // Collect the default billing address when available.
             $billingAddressId = $customer->getDefaultBilling();
             if ($billingAddressId) {
@@ -60,18 +59,17 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface
         }
         $addressProps = $this->helper->formatAddress($billingAddress);
         
-        $tfSession->pushEvent([
-            '$name' => 'orderIdentify',
+        return [
             'userId' => $customerId,
-            'props'=> array_merge($identityProps, $addressProps)
-        ]);
+            'traits' => array_merge($identityProps, $addressProps)
+        ];
     }
         
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $tfSession = $this->tfSessionFactory->create();
 
-        $trackedIdentity = false;
+        $whoPlaced = null;
         $orderIds = $observer->getEvent()->getOrderIds();
         foreach ($orderIds as $orderId) {
             if (!$tfSession->isRecentlyTrackedOrderId($orderId)) {
@@ -82,9 +80,8 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface
                 $order = $this->order->load($orderId);
 
                 // Track the identity of the customer or guest.
-                if (!$trackedIdentity) {
-                    $this->identifyWhoPlacedOrder($tfSession, $order);
-                    $trackedIdentity = true;
+                if ($whoPlaced == null) {
+                    $whoPlaced = $this->identifyWhoPlacedOrder($tfSession, $order);
                 }
                 
                 // Track the orders that were placed.
@@ -102,6 +99,9 @@ class PlaceOrder implements \Magento\Framework\Event\ObserverInterface
             
                     $tfSession->pushEvent([
                         '$name' => 'placeOrder',
+                        'apiToken' => $this->helper->getApiToken(),
+                        'userId' => $whoPlaced['userId'],
+                        'traits' => $whoPlaced['traits'],
                         'props' => [
                             'orderId' => $orderId,
                             'quoteId' => $order->getQuoteId(),

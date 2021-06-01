@@ -65,6 +65,7 @@ class AddToCart implements \Magento\Framework\Event\ObserverInterface
         
         $this->tfSessionFactory->create()->pushEvent([
             '$name' => 'addToCart',
+            'apiToken' => $this->helper->getApiToken(),
             'props' => [
                 'currency' => $this->helper->getCurrencyCode(),
                 'products' => $visibleItems

@@ -38,4 +38,20 @@ class Head extends \Magento\Framework\View\Element\Template
     {
         return $this->helper->getAssetUrl();
     }
+
+    /**
+     * Get the custom initialization Javascript from the module settings.
+     */
+    public function getCustomJSInit()
+    {
+        return $this->helper->getCustomJSInit();
+    }
+
+    /**
+     * Get the custom event handler Javascript from the module settings.
+     */
+    public function getCustomJSEventHandlers()
+    {
+        return $this->helper->getCustomJSEventHandlers();
+    }
 }

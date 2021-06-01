@@ -6,11 +6,12 @@
  * @copyright   Copyright (c) Trialfire
  *
  * Outputs a tracking script include at the top of every page.
+ * 
+ * Note: each custom event handler gets a separate script tag to isolate syntax errors.
  */
 ?>
 <script type="text/javascript">
-var s = document.createElement('script'),
-    tf = { 
+var tf = { 
       $q: [], 
       do: function () { 
         tf.$q.push([].slice.call(arguments)); 
@@ -22,7 +23,36 @@ var s = document.createElement('script'),
   };
 });
 window.Trialfire = tf;
-s.src = "<?= $block->escapeJs($block->getAssetUrl()); ?>"; 
-document.head.appendChild(s);
-Trialfire.init('<?= $block->escapeJs($block->getApiToken()); ?>');
+(function () {
+  function injectScript() {
+    var s = document.createElement('script');
+    s.src = this.assetUrl;
+    document.head.appendChild(s);
+  }
+  function defaultInitCode () {
+    injectScript.call(this);
+    Trialfire.init(this.apiToken);
+  }
+  var initThis = {
+    assetUrl: "<?= $block->escapeJs($block->getAssetUrl()); ?>",
+    apiToken: "<?= $block->escapeJs($block->getApiToken()); ?>"
+  };
+  <?php 
+  $customInit = $block->getCustomJSInit();
+  if (empty($customInit)): ?>
+    defaultInitCode.call(initThis);
+  <?php else: ?>
+    initThis.injectScript = injectScript.bind(initThis);
+    initThis.callDefaultInit = defaultInitCode.bind(initThis);
+    (function () {<?= /* @noEscape */ $customInit ?>}).call(initThis);
+  <?php endif; ?>
+})();
 </script>
+
+<?php foreach ($block->getCustomJSEventHandlers() as $key => $handler): ?>
+<script type="text/javascript">
+require(['Trialfire_Tracker/js/tfMage'], function (tfMage) {  
+  tfMage.setEventHandler("<?= $block->escapeJs($key) ?>", <?= /* @noEscape */ $handler ?>);
+});
+</script>
+<?php endforeach; ?>

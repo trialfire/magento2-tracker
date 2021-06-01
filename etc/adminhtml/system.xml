@@ -65,6 +65,166 @@
                     <validate>required-entry</validate>
                 </field>
             </group>
+            <group id="advanced"
+                   type="text"
+                   translate="label"
+                   sortOrder="30"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label><![CDATA[Custom Initialization]]></label>
+                <comment>
+                <![CDATA[
+                    Replace the default initialization with custom JavaScript.<br/>
+                    <a target="_blank" href="https://docs.trialfire.com/#/magento2-tracker">Click here</a> to view the documentation.
+                ]]>
+                </comment>
+                <field id="custom_init"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Initialization Code]]></label>
+                    <comment>Custom JavaScript code to initialize Trialfire. Leave empty to use the default logic.</comment>
+                </field>
+            </group>
+            <group id="handlers"
+                   type="text"
+                   translate="label"
+                   sortOrder="30"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label><![CDATA[Custom Event Handlers]]></label>
+                <comment>
+                <![CDATA[
+                    Replace the default event handlers with custom JavaScript.<br/>
+                    <a target="_blank" href="https://docs.trialfire.com/#/magento2-tracker">Click here</a> to view the documentation.
+                ]]>
+                </comment>
+                <field id="handler_register"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Register]]></label>
+                    <comment>Custom JavaScript code to handle a register event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_login"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="15"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Login]]></label>
+                    <comment>Custom JavaScript code to handle a login event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_logout"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Logout]]></label>
+                    <comment>Custom JavaScript code to handle a logout event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_billing_address"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="25"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Update Billing Address]]></label>
+                    <comment>Custom JavaScript code to handle a billing address update event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_view_category"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="30"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[View Category]]></label>
+                    <comment>Custom JavaScript code to handle a view category event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_view_product"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="35"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[View Product]]></label>
+                    <comment>Custom JavaScript code to handle a view product event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_add_to_cart"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="40"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Add to Cart]]></label>
+                    <comment>Custom JavaScript code to handle an add to cart event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_remove_from_cart"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="45"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Remove from Cart]]></label>
+                    <comment>Custom JavaScript code to handle a remove from cart event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_add_to_wishlist"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="50"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Add to Wishlist]]></label>
+                    <comment>Custom JavaScript code to handle an add to wishlist event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_newsletter"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="55"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Subscribe to Newsletter]]></label>
+                    <comment>Custom JavaScript code to handle a subscribe to newsletter event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_start_checkout"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="60"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Start Checkout]]></label>
+                    <comment>Custom JavaScript code to handle a start checkout event. Leave empty to use the default handler.</comment>
+                </field>
+                <field id="handler_place_order"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="70"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[Place Order]]></label>
+                    <comment>Custom JavaScript code to handle a place order event. Leave empty to use the default handler.</comment>
+                </field>
+            </group>
         </section>     
     </system>
 </config>
