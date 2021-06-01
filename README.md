@@ -48,4 +48,4 @@ The only required configuration is the API key from your project in Trialfire. Y
 
 3. Save the configuration.
 
-4. Flush the __Configuration__ and __Full_Page__ caches. You can clear the caches from _System > Cache Management_ or use the command `bin/magento cache:flush config full_page`.
+4. Flush the __Configuration__, __Block HTML__, and __Full_Page__ caches. You can clear the caches from _System > Cache Management_ or use the command `bin/magento cache:flush config block_html full_page`.
