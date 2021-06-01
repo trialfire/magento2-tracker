@@ -20,17 +20,12 @@ Coming soon.
 
 ### Install from Command Line
 
-1. Add this GitHub repository to your composer repositories.
-```
-php composer.phar config repositories.trialfireinc vcs https://github.com/trialfire/magento2-tracker
-```
-
-2. Require the trialfireinc/tracker package. A list of version tags is available [here](https://github.com/trialfire/magento2-tracker/releases).
+1. Require the trialfireinc/tracker package. A list of version tags is available [here](https://github.com/trialfire/magento2-tracker/releases).
 ```
 php composer.phar require trialfireinc/tracker:v1.0.0
 ```
 
-3. Enable the module.
+2. Enable the module.
 ```
 bin/magento module:enable Trialfire_Tracker --clear-static-content
 bin/magento setup:upgrade
