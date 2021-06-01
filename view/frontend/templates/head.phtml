@@ -6,7 +6,7 @@
  * @copyright   Copyright (c) Trialfire
  *
  * Outputs a tracking script include at the top of every page.
- * 
+ *
  * Note: each custom event handler gets a separate script tag to isolate syntax errors.
  */
 ?>
@@ -37,11 +37,11 @@ window.Trialfire = tf;
     assetUrl: "<?= $block->escapeJs($block->getAssetUrl()); ?>",
     apiToken: "<?= $block->escapeJs($block->getApiToken()); ?>"
   };
-  <?php 
-  $customInit = $block->getCustomJSInit();
-  if (empty($customInit)): ?>
+  <?php
+    $customInit = $block->getCustomJSInit();
+    if (empty($customInit)): ?>
     defaultInitCode.call(initThis);
-  <?php else: ?>
+    <?php else: ?>
     initThis.injectScript = injectScript.bind(initThis);
     initThis.callDefaultInit = defaultInitCode.bind(initThis);
     (function () {<?= /* @noEscape */ $customInit ?>}).call(initThis);

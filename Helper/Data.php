@@ -87,7 +87,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Add a mapping for an event handler if there is custom JavaScript in the module settings.
      */
-    public function addHandlerIfNotEmpty(&$handlers, $eventName, $configKey, $scope) {
+    public function addHandlerIfNotEmpty(&$handlers, $eventName, $configKey, $scope)
+    {
         $jsCode = trim($this->scopeConfig->getValue(
             $configKey,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
@@ -102,7 +103,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a map of event names to custom event handlers from the module settings.
      */
-    public function getCustomJSEventHandlers($scope = null) 
+    public function getCustomJSEventHandlers($scope = null)
     {
         $handlers = [];
         $this->addHandlerIfNotEmpty($handlers, 'register', self::CONFIG_HANDLER_REGISTER, $scope);
