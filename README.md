@@ -30,6 +30,7 @@ php composer.phar require trialfireinc/tracker:v1.1.0
 bin/magento module:enable Trialfire_Tracker --clear-static-content
 bin/magento setup:upgrade
 bin/magento setup:di:compile
+bin/magento setup:static-content:deploy
 bin/magento cache:clean
 ```
 
