@@ -16,13 +16,13 @@ This module adds support for Trialfire to Magento 2. In addition to normal behav
 
 ### Install from Magento Marketplace
 
-Coming soon.
+https://marketplace.magento.com/trialfireinc-tracker.html
 
 ### Install from Command Line
 
 1. Require the trialfireinc/tracker package. A list of version tags is available [here](https://github.com/trialfire/magento2-tracker/releases).
 ```
-php composer.phar require trialfireinc/tracker:v1.1.0
+php composer.phar require trialfireinc/tracker:v1.1.2
 ```
 
 2. Enable the module.
