@@ -2,7 +2,7 @@
     "name": "trialfireinc/tracker",
     "description": "Trialfire tracking module for Magento 2",
     "require": {
-        "php": "^7.1.0"
+        "php": "^7.1.0 || ^8.0.0"
     },
     "suggest": {},
     "type": "magento2-module",
