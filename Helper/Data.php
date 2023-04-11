@@ -79,7 +79,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             self::CONFIG_CUSTOM_INIT,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $scope
-        ));
+        ) ?? '');
 
         return empty($jsCode) ? null : $jsCode;
     }
@@ -93,7 +93,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $configKey,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $scope
-        ));
+        ) ?? '');
         if (!empty($jsCode)) {
             // Wrap the custom handler code in a JavaScript function.
             $handlers[$eventName] = "function () {" . $jsCode . "}";

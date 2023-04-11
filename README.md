@@ -22,7 +22,7 @@ https://marketplace.magento.com/trialfireinc-tracker.html
 
 1. Require the trialfireinc/tracker package. A list of version tags is available [here](https://github.com/trialfire/magento2-tracker/releases).
 ```
-php composer.phar require trialfireinc/tracker:v1.1.3
+php composer.phar require trialfireinc/tracker:v1.1.4
 ```
 
 2. Enable the module.
